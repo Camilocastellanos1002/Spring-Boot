@@ -32,7 +32,11 @@ public class CoderController {
 
         //se debe retornar el nombre exacto de la vista html
         return "viewCoder";
+    }
 
+    @RequestMapping("/Form")
+    public String showViewFormCoder(){
+        return "ViewForm";
     }
 
 }
