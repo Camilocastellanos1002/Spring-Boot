@@ -27,6 +27,7 @@ public class CoderController {
     public String showViewGetAll(Model objModel){
 
         List<Coder> list= this.obCoderService.findAll();    //genera una lista los coders que recibe del servicio
+        System.out.println(list);
         objModel.addAttribute("coderList", list);
 
         //se debe retornar el nombre exacto de la vista html
