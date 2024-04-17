@@ -3,7 +3,7 @@ package com.riwi.holamundo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 
@@ -15,12 +15,18 @@ public class HolaMundo {
 
     //GetMapping crea una ruta especifica para el metodo
     @GetMapping("/holamundo")
-    public String getMethodName(@RequestParam String param) {
-        return new String();
-    }
-    
+    //ResponseBody permite responder en el navegador
+    @ResponseBody
     public String mostrarMensaje(){
         return "Hola mundo";
+    }
+
+    @GetMapping("/suma")
+    @ResponseBody
+    public String suma(){
+        int a=4;
+        int b=399;
+        return String.valueOf(a+b);
     }
 
 }
