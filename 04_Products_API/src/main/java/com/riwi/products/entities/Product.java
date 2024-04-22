@@ -16,7 +16,7 @@ public class Product {
 
 
     @Id /* id como llave primaria */
-    @GeneratedValue(strategy = GenerationType.IDENTITY) /* auto incrementable */
+    @GeneratedValue(strategy = GenerationType.IDENTITY) /*  id auto incrementable */
     private Long id; 
     private String name;
     private int quantity;
