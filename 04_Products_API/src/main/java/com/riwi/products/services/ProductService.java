@@ -21,26 +21,27 @@ public class ProductService implements IProductService {
 
     @Override
     public Product save(Product product) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+        return this.productRepository.save(product);
     }
 
     @Override
     public Product findById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        return this.productRepository.findById(id).orElseThrow(); //regresa el respository con el id o genera un error  (if)
     }
 
     @Override
-    public boolean delete(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    public void delete(Long id) {
+        Product productFind= this.productRepository.findById(id).orElseThrow(); //validar si el id existe
+        this.productRepository.delete(productFind);
+
+        
     }
 
     @Override
-    public Product update(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    public Product update(Long id,Product objproduct) {
+        this.productRepository.findById(id).orElseThrow(); //regresa el respository con el id o genera un error  (if)
+        objproduct.setId(id);
+        return this.productRepository.save(objproduct);
     }
 
     @Override
