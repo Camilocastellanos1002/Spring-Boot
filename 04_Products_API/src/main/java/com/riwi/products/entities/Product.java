@@ -1,5 +1,7 @@
 package com.riwi.products.entities;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data   /* forma de crear getters and setters por medio de la dependencia lombok*/
 @AllArgsConstructor /* Anotacion para crear constructor lleno */
 @NoArgsConstructor /*Anotacion para crear constructor vacio */
-public class Product {
+public class Product{
 
 
     @Id /* id como llave primaria */
