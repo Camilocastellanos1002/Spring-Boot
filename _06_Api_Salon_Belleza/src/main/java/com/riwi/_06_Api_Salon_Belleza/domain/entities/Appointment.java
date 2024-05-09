@@ -16,7 +16,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "appoinment")
+@Entity(name = "appointment")
 @Data
 @Builder
 @AllArgsConstructor
@@ -40,6 +40,12 @@ public class Appointment {
     )
     private ClientEntity client;
     
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+        name = "service_id",
+        referencedColumnName = "id"
+    )
+    private ServiceEntity service;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(

@@ -6,7 +6,7 @@ import com.riwi._06_Api_Salon_Belleza.utils.enums.SortType;
 
 public interface CRUD_Service <RQ, RS, ID> {
 
-    public RS create(RS request);
+    public RS create(RQ request);
 
     public RS get(ID request);
 

@@ -18,10 +18,11 @@ public class ServiceRequest {
     @NotNull(message="El nombre del servicio es requerido")
     @NotBlank(message="El nombre del servicio es requerido")
     private String name;
+    private String description;
+    @NotNull(message = "el precio es requerido")
     @DecimalMin(
         value="0.01",
         message="El valor del servicio debe ser mayor a 0"
     )
-    private String description;
     private BigDecimal price;
 }
