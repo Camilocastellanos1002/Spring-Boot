@@ -54,6 +54,7 @@ public class VacantService implements IVacantsService {
          * Convertimos el request a una instacia de vacante
          */
         Vacant vacant = this.requestToVacant(request, new Vacant());
+        //agregamos la compañia encontrada por medio de la id, a la vacante
         vacant.setCompany(company);
 
         // Guardamos en la BD y convertimos la nueva entidad al DTO de respuesta
@@ -67,8 +68,8 @@ public class VacantService implements IVacantsService {
         Vacant vacant = this.find(id);
 
         // Validamos la compañia
-        Company company = this.companyRepository.findById(request.getCompanyId())
-                .orElseThrow(() -> new IdNotFoundExeption("company"));
+        Company company = this.companyRepository.findById(request.getCompanyId()) //se busca la compañia dentro del request 
+                .orElseThrow(() -> new IdNotFoundExeption("company")); //si genera error dispara el error personalizado
 
         // Convertimos el dto de request
         vacant = this.requestToVacant(request, vacant);
@@ -77,12 +78,15 @@ public class VacantService implements IVacantsService {
         // Agregamos el nuevo Status
         vacant.setStatus(request.getStatus());
 
+        //genera la vacante y la guarda en el repositorio, para poderla convertir al response
         return this.entityToResponse(this.vacantRepository.save(vacant));
     }
 
     @Override
     public void delete(Long id) {
+        //realiza la busqueda por id de la vacante
         Vacant vacant = this.find(id);
+        //elimina la vacante del respositorio
         this.vacantRepository.delete(vacant);
     }
 
@@ -95,10 +99,10 @@ public class VacantService implements IVacantsService {
         /* Creamos instacion del dto de vacante */
         VacantResponse response = new VacantResponse();
 
-        /* Copiar toda la entidad en el DTO */
+        /* Copiar toda la entidad vacante al dto de response*/
         BeanUtils.copyProperties(entity, response);
 
-        /* Creamos instacio del dto de compañia dentro de la vancate */
+        /* Creamos instacia del dto de compañia dentro de la vancate */
         CompanyToVancantResponse companyDto = new CompanyToVancantResponse();
 
         /*
@@ -107,11 +111,10 @@ public class VacantService implements IVacantsService {
          */
         BeanUtils.copyProperties(entity.getCompany(), companyDto);
 
-        // Agregego el dto lleno a la respuesta final
+        // Agregmos el dto de respuesta de la compañia a la respuesta general
         response.setCompany(companyDto);
 
         return response;
-
     }
 
     private Vacant requestToVacant(VacantRequest request, Vacant entity) {
@@ -124,9 +127,9 @@ public class VacantService implements IVacantsService {
 
     }
 
-    private Vacant find(Long id) {
+    private Vacant find(Long id) { //Realiza la busqueda por id, para ser implementado en todos los metodos de forma general
         return this.vacantRepository.findById(id)
-                .orElseThrow(() -> new IdNotFoundExeption("Vacant"));
+                .orElseThrow(() -> new IdNotFoundExeption("Vacant")); //en caso de error, dispara el idNotFoundException
     }
     
 }
