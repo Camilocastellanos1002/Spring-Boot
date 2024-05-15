@@ -15,13 +15,13 @@ import com.riwi._05_Api_Vacantes_JPA_DTO.utils.dto.errors.BaseErrorResponse;
 import com.riwi._05_Api_Vacantes_JPA_DTO.utils.exceptions.IdNotFoundExeption;
 
 /**
- * RestControllerAdvice = Controlador de errorres
+ * RestControllerAdvice = anotacion de Controlador de errorres
  */
 @RestControllerAdvice
 /**
  * Status de error
  */
-@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+@ResponseStatus(code = HttpStatus.BAD_REQUEST) //forma de la cual el cliente envia los datos de forma erronea
 public class BadRequestController {
     
     
@@ -29,21 +29,21 @@ public class BadRequestController {
      * Para especificar cuando se va a disparar este metodo
      * utilizamos la aotacion ExceptionHandler
      */
-    @ExceptionHandler(IdNotFoundExeption.class)
+    @ExceptionHandler(IdNotFoundExeption.class) //anotacion que va a observar la clase de la excepcion creada que la dispara
     public BaseErrorResponse handleIdNotFound(IdNotFoundExeption exeption) {
 
-        return ErrorResponse.builder()
-                .message(exeption.getMessage())
-                .status(HttpStatus.BAD_REQUEST.name())
-                .code(HttpStatus.BAD_REQUEST.value())
-                .build();
+        return ErrorResponse.builder() //construccion del errorResponse con el patron builder sin la palabra new
+                .message(exeption.getMessage()) //uso implicito del setmessage obteniendo el getmessage
+                .status(HttpStatus.BAD_REQUEST.name()) //uso implicito del setestatus obteniendo el getstatus
+                .code(HttpStatus.BAD_REQUEST.value()) //uso implicito del setcode obteniendo el getcode
+                .build(); //construir el error
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public BaseErrorResponse handleErrors(MethodArgumentNotValidException exception) {
-        List<String> errors = new ArrayList<>();
+    @ExceptionHandler(MethodArgumentNotValidException.class) //excepcion que crea la libreria
+    public BaseErrorResponse handleErrors(MethodArgumentNotValidException exception) { //responde lista de errores
+        List<String> errors = new ArrayList<>(); //generamos una lista varia para llenarla de los errores
 
-        exception.getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
+        exception.getAllErrors().forEach(error -> errors.add(error.getDefaultMessage())); //traer toda la coleccion de todos los errores, se itera por medio de un foreach y agrega el error a la lista
 
         return ErrorsResponse.builder()
                 .errors(errors)

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+//Respuesta de que genera la compañia
 public class CompanyResponse {
     private String id;
     private String name;

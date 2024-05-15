@@ -26,7 +26,7 @@ import lombok.AllArgsConstructor;
 public class CompanyService implements ICompanyService {
     
     @Autowired
-    private final CompanyRepository companyRepository;
+    private final CompanyRepository companyRepository; //inyeccion de dependencias
 
     @Override
     public Page<CompanyResponse> getAll(int page, int size) {
@@ -47,19 +47,18 @@ public class CompanyService implements ICompanyService {
         /** Convertimos el Request en la entidad */
         Company company = this.requestToEntity(request, new Company());
         /**
-         * Agregamos la entidad en el repositorio y el retorno lo convertimos
-         * en respuesta
+         * crea la compañia y save la devuelve al repositorio y se retorna la conversion de compañia a response 
          */
         return this.entityToResponse(this.companyRepository.save(company));
     }
 
     @Override
     public CompanyResponse update(CompanyRequest request, String id) {
-        Company companyToUpdate = this.find(id);
+        Company companyToUpdate = this.find(id); //busco por id la compañia
 
-        Company company = this.requestToEntity(request, companyToUpdate);
+        Company company = this.requestToEntity(request, companyToUpdate); //convierte la request ingresado en entidad y recibe el objeto compañia actualizado
 
-        return this.entityToResponse(this.companyRepository.save(company));
+        return this.entityToResponse(this.companyRepository.save(company)); //guardamos el objeto actualizado en el repositorio y se genera la conversion de la entidad a response
     }
 
     @Override
@@ -80,8 +79,7 @@ public class CompanyService implements ICompanyService {
     }
 
     /**
-     * Este método se encargará de convertir una entidad en el dto de respuesta
-     * de la entidad
+     * Este método se encargará de convertir una entidad (Company) a CompanyResponse
      */
     private CompanyResponse entityToResponse(Company entity) {
 
@@ -95,13 +93,15 @@ public class CompanyService implements ICompanyService {
         BeanUtils.copyProperties(entity, response);
 
         /**
+         * Mapeamos las cantes convirtiendo cada una de ellas al dto de response
          * stream -> Convierte la lista en colección para poder iterarse
-         * map -> Itera toda la lista y retorna cambios
+         * map -> Itera toda la lista y retorna cambios, es como un for each
          * collect -> Crea de nuevo toda la lista que se habia transformado en coleccion
          */
-        response.setVacants(entity.getVacants().stream()
-                .map(this::vacantToResponse)
-                .collect(Collectors.toList()));
+        response.setVacants(entity.getVacants().stream() // stream() cambia una lista a una coleccion, pero desarmada 
+            //getVacants genera el join 
+                .map(this::vacantToResponse) //infiere que se desea sacar un iterable y llevarselo a la funcion vacanttoresponse
+                .collect(Collectors.toList())); //forma de  armar la coleccion 
 
         return response;
 
@@ -123,6 +123,8 @@ public class CompanyService implements ICompanyService {
         return company;
     }
 
+    //metodo utilizado en la mayoria de los otros metodos
+    //del repositorio busca por id y en caso de no encontrarlo genera error y dispara el error pernosalizado por medio de una funcion lambda y recibe el nombre de la entidad
     private Company find(String id) {
         return this.companyRepository.findById(id).orElseThrow(() -> new IdNotFoundExeption("Company"));
     }

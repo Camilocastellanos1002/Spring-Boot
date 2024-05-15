@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.riwi._05_Api_Vacantes_JPA_DTO.entities.Company;
 
 @Repository
-public interface CompanyRepository extends JpaRepository<Company,String>{
+public interface CompanyRepository extends JpaRepository<Company,String>{ //la libreria jpa genera toda la funcionalidad
     
 }

@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Data
-@SuperBuilder
+@SuperBuilder //activar el constructor padre de serializable 
 @AllArgsConstructor
 @NoArgsConstructor
-public class BaseErrorResponse implements Serializable {
+public class BaseErrorResponse implements Serializable {//Serializable es una interfaz para responder con errores
     private String status;
     private Integer code;
 }

@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+//el Request es como le pedimos las cosas al cliente (POSTMAN)
 public class VacantRequest {
     /* Size: forma de limitar el tamaño del titulo */
     /* notBlank: especifica que el titulo es obligatorio en caso de que no lo inserte */
@@ -24,5 +25,6 @@ public class VacantRequest {
     private StatusVacant status;
     @Size(min = 0,max = 32)
     @NotBlank (message = "El id de la compañia es querido")
+    //unico atributo que requerimos de la compañia en la vacante
     private String companyId;
 }

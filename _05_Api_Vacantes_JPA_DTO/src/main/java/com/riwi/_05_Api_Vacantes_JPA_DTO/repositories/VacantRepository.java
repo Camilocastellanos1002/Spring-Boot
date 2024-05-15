@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.riwi._05_Api_Vacantes_JPA_DTO.entities.Vacant;
 
-public interface VacantRepository  extends JpaRepository<Vacant, Long>{
+public interface VacantRepository  extends JpaRepository<Vacant, Long>{ //controla el tipo vacante y el tipo de la llave primaria
 
     
 } 
